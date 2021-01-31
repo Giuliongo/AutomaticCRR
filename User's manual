@@ -1,0 +1,5 @@
+#Developped by Nux
+
+To launch the program you need to make a cd and your path to the AutomaticCRR.py file then do the command sudo su and enter your password.
+Then enter the command "python3 AutomaticCRR.py". 
+Enjoy it !
