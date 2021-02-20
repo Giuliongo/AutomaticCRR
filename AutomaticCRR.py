@@ -10,13 +10,11 @@ import time
 aireplay = 0
 os.system("clear")
 
-print("If your not connect in super user mode (sudo su) restart the program.")
-time.sleep(3)
 print("I disclaim all responsibility for the use you make of my wifi cracking tool.")
-time.sleep(1)
+time.sleep(3)
 
 PATH = os.getcwd()
-PATH = (f({PATH}/))
+PATH = (f"{PATH}/")
 
 
 if not os.path.exists(f"{PATH}AutomaticCRR"):
